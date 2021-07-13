@@ -19,8 +19,7 @@ app.get('/', (req, res) => {
     res.send('no');
 })
 
-console.log(process.env.MONGO_URI);
-connect(process.env.MONGO_URI ?? 'err', {useNewUrlParser: true})
+connect(process.env.MONGO_URI ?? 'err', {useNewUrlParser: true, useUnifiedTopology: true})
 .then(() => {
   console.log('Connected to database');
   app.listen(process.env.PORT, () => {
