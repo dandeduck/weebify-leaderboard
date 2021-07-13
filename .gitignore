@@ -1,6 +1,6 @@
 
 # compiled output
-/build
+build/
 /tmp
 /out-tsc
 
