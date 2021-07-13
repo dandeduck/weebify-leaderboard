@@ -23,11 +23,16 @@
   },
   "homepage": "https://github.com/dandeduck/weebify-leaderboard#readme",
   "dependencies": {
-    "express": "^4.17.1"
+    "@okta/jwt-verifier": "^2.3.0",
+    "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "express-bearer-token": "^2.4.0",
+    "mongoose": "^5.13.2"
   },
   "devDependencies": {
+    "@types/cors": "^2.8.12",
     "@types/express": "^4.17.13",
-    "standard": "^16.0.3",
     "tslint": "^6.1.3",
     "typescript": "^4.3.5"
   }

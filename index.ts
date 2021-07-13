@@ -1,12 +1,24 @@
 import express from 'express';
+import cors from 'cors';
+import mongoose from 'mongoose';
+import bearerToken from 'express-bearer-token';
 
-const app = express();
-app.use(express.json());
+const port = process.env.PORT || 8080;
+
+
+const app = express()
+  .use(express.json())
+  .use(cors())
+  .use(bearerToken());
 
 app.get('/', (req, res) => {
     res.send('no');
 })
 
-app.listen(3000, () => {
-  console.log('listening on port ',3000)
-})
+mongoose.connect(`mongodb://localhost:27017/hangman`)
+.then(() => {
+  console.log('Connected to database');
+  app.listen(port, () => {
+    console.log(`Express server listening on port ${port}`);
+  });
+});
