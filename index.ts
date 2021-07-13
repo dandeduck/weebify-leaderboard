@@ -1,10 +1,14 @@
 import express from 'express';
 import cors from 'cors';
-import mongoose from 'mongoose';
+import { connect } from 'mongoose';
 import bearerToken from 'express-bearer-token';
+import dotenv from 'dotenv';
 
-const port = process.env.PORT || 8080;
+const result = dotenv.config();
 
+if (result.error) {
+  throw result.error
+}
 
 const app = express()
   .use(express.json())
@@ -15,10 +19,11 @@ app.get('/', (req, res) => {
     res.send('no');
 })
 
-mongoose.connect(`mongodb://localhost:27017/hangman`)
+console.log(process.env.MONGO_URI);
+connect(process.env.MONGO_URI ?? 'err', {useNewUrlParser: true})
 .then(() => {
   console.log('Connected to database');
-  app.listen(port, () => {
-    console.log(`Express server listening on port ${port}`);
+  app.listen(process.env.PORT, () => {
+    console.log(`Express server listening on port ${process.env.PORT}`);
   });
 });
