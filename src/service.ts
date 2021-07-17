@@ -1,4 +1,4 @@
-import "./deps.ts"
+import "https://deno.land/x/dotenv@v2.0.0/load.ts";
 import { Application } from "./deps.ts"
 import router from "./routs.ts"
 
@@ -8,7 +8,6 @@ const app = new Application();
 
 app.use(router.routes());
 app.use(router.allowedMethods());
-
 
 await app.listen({ port: PORT });
 console.log(`Listening on PORT: ${PORT}`)
