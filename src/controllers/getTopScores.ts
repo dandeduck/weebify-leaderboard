@@ -3,8 +3,10 @@ import { scores } from "../helpers/dbconnect.ts";
 // @description: GET top scores
 // @route GET /api/scores/top/
 // deno-lint-ignore no-explicit-any
-export async function getTopScores(params: any, response: any) : Promise<void> {
+export async function getTopScores(context: any) : Promise<void> {
     const MAX_LIMIT = 100;
+    const params = context.params;
+    const response = context.response;
 
     params.limit = params.limit ?? 10;
     params.limit = Math.min(Math.max(params.limit, 1), MAX_LIMIT)

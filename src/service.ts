@@ -9,5 +9,5 @@ const app = new Application();
 app.use(router.routes());
 app.use(router.allowedMethods());
 
-await app.listen({ port: PORT });
 console.log(`Listening on PORT: ${PORT}`)
+await app.listen({ port: PORT });
