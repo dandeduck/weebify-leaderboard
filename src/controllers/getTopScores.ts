@@ -1,3 +1,4 @@
+import { Response } from "../deps.ts";
 import { scores } from "../helpers/dbconnect.ts";
 
 // @description: GET top scores
@@ -6,7 +7,7 @@ import { scores } from "../helpers/dbconnect.ts";
 export async function getTopScores(context: any) : Promise<void> {
     const MAX_LIMIT = 100;
     const params = context.params;
-    const response = context.response;
+    const response: Response = context.response;
 
     params.limit = params.limit ?? 10;
     params.limit = Math.min(Math.max(params.limit, 1), MAX_LIMIT)
