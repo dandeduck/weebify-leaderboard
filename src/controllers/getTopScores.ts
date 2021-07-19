@@ -6,13 +6,12 @@ import { scores } from "../helpers/dbconnect.ts";
 // deno-lint-ignore no-explicit-any
 export async function getTopScores(context: any) : Promise<void> {
     const MAX_LIMIT = 100;
-    const params = context.params;
     const response: Response = context.response;
-
-    params.limit = params.limit ?? 10;
-    params.limit = Math.min(Math.max(params.limit, 1), MAX_LIMIT)
     
-    const topScores = await scores.find({}).sort({score: -1}).limit(params.limit).toArray();
+    let limit = context.params.limit;
+    limit = Math.min(Math.max(limit, 1), MAX_LIMIT)
+    
+    const topScores = await scores.find({}).sort({score: -1}).limit(limit).toArray();
 
     if (topScores) {
         response.status = 200;
