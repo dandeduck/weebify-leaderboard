@@ -43,6 +43,8 @@ async function insertOrUpdateScore(updatedScore: Score) : Promise<number> {
             await scores.deleteOne(existingScore);
             await scores.insertOne(updatedScore);
         }
+    } else {
+        await scores.insertOne(updatedScore);
     }
 
     return (await scores
