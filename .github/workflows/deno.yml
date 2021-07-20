@@ -22,14 +22,15 @@ jobs:
         with:
           push: true
           tags: dandeduck/weebify-scores:latest
-  
-  azure:
-    runs-on: ubuntu-latest
-    steps:    
+        
+      #needs to be sequential
       - name: 'Login via Azure CLI'
         uses: azure/login@v1
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
+          
+      - name: 'Delete prev ACI'
+        run: az container delete --name weebify-scores --resource-group weebify
             
       - name: 'Deploy to Azure Container Instances'
         uses: Azure/aci-deploy@v1
@@ -39,3 +40,4 @@ jobs:
           image: weebify-scores
           name: weebify-scores
           location: 'west europe'
+    
