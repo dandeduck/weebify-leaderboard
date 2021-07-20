@@ -22,3 +22,23 @@ jobs:
         with:
           push: true
           tags: dandeduck/weebify-scores:latest
+  
+  azure:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 'Checkout GitHub Action'
+          uses: actions/checkout@master
+          
+      - name: 'Login via Azure CLI'
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+            
+      - name: 'Deploy to Azure Container Instances'
+        uses: Azure/aci-deploy@v1
+        with:
+          resource-group: weebify
+          dns-name-label: dandeduck/weebify-scores
+          image: weebify-scores
+          name: weebify-scores
+          location: 'west europe'
