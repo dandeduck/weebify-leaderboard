@@ -1,4 +1,4 @@
-name: Publish to Docker Hub
+name: Publish to Docker Hub and Deploy to Azure
 
 on:
   push:
@@ -35,7 +35,7 @@ jobs:
         uses: Azure/aci-deploy@v1
         with:
           resource-group: weebify
-          dns-name-label: dandeduck/weebify-scores
+          dns-name-label: weebify-scores
           image: weebify-scores
           name: weebify-scores
           location: 'west europe'
