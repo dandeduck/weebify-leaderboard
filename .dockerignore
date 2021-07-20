@@ -1,0 +1,9 @@
+#vscode settings
+/.vscode
+#files related to repo
+.git
+.gitignore
+LICENSE
+README.md
+#scripts
+*.sh

@@ -1,0 +1,1 @@
+denon run --allow-read --allow-env --allow-net src/service.ts || echo "denon not found. Installing denon" && deno install -qAf --unstable https://deno.land/x/denon/denon.ts && denon run --allow-read --allow-env --allow-net src/service.ts
