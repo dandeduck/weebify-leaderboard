@@ -30,4 +30,4 @@ jobs:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
             
       - name: 'Restart ACI'
-        run: az container restart --name weebify-scores
+        run: az container restart --name weebify-scores --resource-group weebify 
