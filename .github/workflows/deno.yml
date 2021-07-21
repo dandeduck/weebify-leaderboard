@@ -28,16 +28,6 @@ jobs:
         uses: azure/login@v1
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
-          
-#       - name: 'Delete prev ACI'
-#         run: az container delete --name weebify-scores --resource-group weebify --yes
             
-      - name: 'Deploy to Azure Container Instances'
-        uses: Azure/aci-deploy@v1
-        with:
-          resource-group: weebify
-          dns-name-label: weebify-scores
-          image: weebify-scores
-          name: weebify-scores
-          location: 'west europe'
-    
+      - name: 'Restart ACI'
+        run: az container restart --name weebify-scores
