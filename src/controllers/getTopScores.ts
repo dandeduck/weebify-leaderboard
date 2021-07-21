@@ -1,11 +1,11 @@
-import { Response, RouterContext } from "../deps.ts";
+import { Status, RouterContext } from "../deps.ts";
 import { scores } from "../helpers/dbconnect.ts";
 
 // @description: GET top scores
 // @route GET /api/scores/top/
-export async function getTopScores(context: RouterContext) : Promise<void> {
+export async function getTopScores(context: RouterContext) {
     const MAX_LIMIT = 100;
-    const response: Response = context.response;
+    const response = context.response;
     
     let limit = +(context.params.limit || 0);
     limit = Math.min(Math.max(limit, 1), MAX_LIMIT)
@@ -13,16 +13,16 @@ export async function getTopScores(context: RouterContext) : Promise<void> {
     const topScores = await scores.find({}).sort({score: -1}).limit(limit).toArray();
 
     if (topScores) {
-        response.status = 200;
+        response.status = Status.OK;
         response.body = {
             success: true,
             data: topScores
         };
     } else {
-        response.status = 500;
+        response.status = Status.InternalServerError;
         response.body = {
             success: false,
-            msg: "Could not get top scores",
+            message: "Could not get top scores",
         };       
     }
 }
