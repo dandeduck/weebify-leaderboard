@@ -1,29 +1,28 @@
-import { Response } from "../deps.ts";
+import { Status, RouterContext } from "../deps.ts";
 import { scores } from "../helpers/dbconnect.ts";
 
 // @description: GET top scores
 // @route GET /api/scores/top/
-// deno-lint-ignore no-explicit-any
-export async function getTopScores(context: any) : Promise<void> {
+export async function getTopScores(context: RouterContext) {
     const MAX_LIMIT = 100;
-    const response: Response = context.response;
+    const response = context.response;
     
-    let limit = context.params.limit;
+    let limit = +(context.params.limit || 0);
     limit = Math.min(Math.max(limit, 1), MAX_LIMIT)
     
     const topScores = await scores.find({}).sort({score: -1}).limit(limit).toArray();
 
     if (topScores) {
-        response.status = 200;
+        response.status = Status.OK;
         response.body = {
             success: true,
             data: topScores
         };
     } else {
-        response.status = 500;
+        response.status = Status.InternalServerError;
         response.body = {
             success: false,
-            msg: "Could not get top scores",
+            message: "Could not get top scores",
         };       
     }
 }

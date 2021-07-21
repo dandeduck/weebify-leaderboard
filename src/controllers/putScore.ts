@@ -1,27 +1,26 @@
 import { scores } from "../helpers/dbconnect.ts";
 import { Score } from "../helpers/Score.ts";
-import { Request, Response } from "../deps.ts";
+import { Request, Context, Status } from "../deps.ts";
 
 // @description: PUT single score
 // @route PUT /api/score/put/
-// deno-lint-ignore no-explicit-any
-export async function putScore(context: any) {
+export async function putScore(context: Context<Record<string, unknown>>) {
     const request : Request = context.request;
-    const response : Response = context.response;
+    const response = context.response;
 
     try {
         if (!request.hasBody) { 
-            response.status = 400;
+            response.status = Status.BadRequest;
             response.body = {
               success: false,
-              msg: "No Data",
+              message: "No Data",
             };
         } else {
-            const body = await request.body();
+            const body = request.body();
             const score = await body.value;
             const place = await insertOrUpdateScore(score);
 
-            response.status = 201;
+            response.status = Status.Created;
             response.body = {
                 success: true,
                 place: place
@@ -30,7 +29,7 @@ export async function putScore(context: any) {
     } catch (err) {
         response.body = {
             success: false,
-            msg: err.stack
+            message: err.stack
         };
     }
 }
