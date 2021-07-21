@@ -29,8 +29,8 @@ jobs:
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
           
-#       - name: 'Delete prev ACI'
-#         run: az container delete --name weebify-scores --resource-group weebify --yes
+      - name: 'Delete prev ACI'
+        run: az container delete --name weebify-scores --resource-group weebify --yes
             
       - name: 'Deploy to Azure Container Instances'
         uses: Azure/aci-deploy@v1
