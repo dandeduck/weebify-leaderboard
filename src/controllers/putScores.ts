@@ -1,11 +1,10 @@
 import { scores } from "../helpers/dbconnect.ts";
 import { Score } from "../helpers/Score.ts";
-import { Request, Response } from "../deps.ts";
+import { Request, Response, RouterContext } from "../deps.ts";
 
 // @description: PUT single score
 // @route PUT /api/score/put/
-// deno-lint-ignore no-explicit-any
-export async function putScore(context: any) {
+export async function putScore(context: RouterContext) {
     const request : Request = context.request;
     const response : Response = context.response;
 
